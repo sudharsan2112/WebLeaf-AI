@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebLeaf AI | Chat with Website</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Highlight.js CSS for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="initChat()">
+    <nav>
+        <a class="brand" href="index.html">
+            <div class="brand-icon">🌿</div>WebLeaf AI
+        </a>
+        <div class="nav-status">
+            <span class="dot"></span> Knowledge Base Ready
+        </div>
+    </nav>
+
+    <main class="dashboard">
+        <div class="dashboard-top">
+            <div>
+                <h2>Website Knowledge</h2>
+                <div style="color:var(--muted);font-size:13px;margin-top:4px">Your website has been crawled & indexed successfully.</div>
+            </div>
+            <a href="index.html" class="back-btn">← Crawl another website</a>
+        </div>
+
+        <div class="workspace">
+            <aside class="panel">
+                <div class="panel-title">🌳 Knowledge Base</div>
+                <div class="knowledge-body">
+                    <div id="finalUrl" class="site-url">Loading URL...</div>
+                    <div class="stat">Pages crawled <span class="ready" id="pagesCrawled">0</span></div>
+                    <div class="stat">Text chunks <span class="ready" id="chunksCreated">0</span></div>
+                    <div class="stat">Embeddings <span class="ready">Ready (384-d)</span></div>
+                    <div class="stat">FAISS index <span class="ready">Ready</span></div>
+                    <div class="stat">Semantic search <span class="ready">Online</span></div>
+                    <div class="stat">RAG pipeline <span class="ready">Ready</span></div>
+                </div>
+            </aside>
+
+            <div class="panel chat-panel">
+                <div class="chat-head">
+                    <div class="avatar">
+                        <img class="cat-icon" src="data:image/png;base64,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" alt="black cat">
+                    </div>
+                    <div>
+                        <strong>Web Assistant</strong>
+                        <small>● Connected to your website knowledge base</small>
+                    </div>
+                </div>
+
+                <div id="chatHistory" class="messages">
+                    <div class="msg ai">
+                        Hello! 🌿 I'm your Web Assistant.
+                        <br><br>
+                        I've finished indexing the website. Ask me anything about its content and I'll search the knowledge base for the answer.
+                    </div>
+                </div>
+
+                <div class="chat-input-row">
+                    <input type="text" id="chatInput" placeholder="Ask something about the website..." onkeydown="handleKeyPress(event)">
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

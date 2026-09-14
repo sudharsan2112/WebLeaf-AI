@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebLeaf AI | Website Knowledge Assistant</title>
+<!-- Google Fonts & Syntax Highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+<nav>
+  <div class="brand"><div class="brand-icon">🌿</div>WebLeaf AI</div>
+  <div class="nav-status"><span class="dot"></span> RAG Website Assistant</div>
+</nav>
+
+<div class="landing">
+  <div class="plant a">🌿</div><div class="plant b">🍃</div>
+  <div class="eyebrow">AI · RAG · Web Intelligence</div>
+  <h1>Give your website<br>a voice.</h1>
+  <p class="hero-text">
+    Paste a website URL and let WebLeaf AI crawl its content.
+    Watch the knowledge being built, then chat with your website.
+  </p>
+
+  <div class="url-card">
+    <div class="url-title">🌱 Start with a website</div>
+    <div class="url-sub">Enter the URL you want WebLeaf AI to crawl.</div>
+
+    <div class="url-row">
+      <input id="url" class="url-input" placeholder="https://example.com"
+             onkeydown="if(event.key==='Enter')startCrawl()">
+      <button class="url-button" onclick="startCrawl()">Start Crawling →</button>
+    </div>
+
+    <div class="options">
+      <select id="depth">
+        <option value="3">Depth: 3 levels</option>
+        <option value="1">Depth: 1 level</option>
+        <option value="2">Depth: 2 levels</option>
+      </select>
+      <select id="mode">
+        <option value="recursive">Mode: Recursive crawl</option>
+        <option value="single">Mode: Single page</option>
+      </select>
+    </div>
+
+    <div id="crawlArea" class="crawl-area">
+      <div class="crawl-card">
+        <div class="crawl-heading">Your knowledge tree is growing</div>
+        <div id="crawlStatus" class="crawl-status">Finding pages...</div>
+
+        <div class="tree-scene">
+      <div class="lifecycle-sun"></div>
+      <div id="growthRing" class="growth-ring"></div>
+      <div id="spores" class="spores">
+        <span class="spore"></span><span class="spore"></span><span class="spore"></span><span class="spore"></span>
+        <span class="spore"></span><span class="spore"></span><span class="spore"></span><span class="spore"></span>
+      </div>
+
+      <svg class="tree-svg" viewBox="0 0 200 230" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8a6a45"/>
+            <stop offset="55%" stop-color="#6b4f34"/>
+            <stop offset="100%" stop-color="#4f3a26"/>
+          </linearGradient>
+          <radialGradient id="canopyA" cx="35%" cy="28%" r="75%">
+            <stop offset="0%" stop-color="#8fb56d"/>
+            <stop offset="100%" stop-color="#4c7a3b"/>
+          </radialGradient>
+          <radialGradient id="canopyB" cx="40%" cy="25%" r="75%">
+            <stop offset="0%" stop-color="#a3c982"/>
+            <stop offset="100%" stop-color="#5a8a49"/>
+          </radialGradient>
+          <radialGradient id="soilGrad" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#8a6b47"/>
+            <stop offset="100%" stop-color="#6b4f34"/>
+          </radialGradient>
+          <radialGradient id="ambientGlow" cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stop-color="rgba(255,214,120,.5)"/>
+            <stop offset="100%" stop-color="rgba(255,214,120,0)"/>
+          </radialGradient>
+          <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <path id="leafShape" d="M0,0 C2.8,-3.6 7.4,-3.6 10.2,0 C7.4,3.6 2.8,3.6 0,0 Z"/>
+        </defs>
+
+        <ellipse cx="100" cy="212" rx="72" ry="6" fill="rgba(56,91,62,.14)"/>
+
+        <!-- Stage 1 — Seed -->
+        <g class="tstage active" data-stage="1">
+          <ellipse cx="100" cy="203" rx="24" ry="6.5" fill="url(#soilGrad)"/>
+          <path d="M100,181 C107,181 111,189 108,196 C105,202 95,202 92,196 C89,189 93,181 100,181Z" fill="#6b4a2c"/>
+          <ellipse cx="96" cy="189" rx="2.2" ry="3" fill="#8a6a45" opacity=".55"/>
+        </g>
+
+        <!-- Stage 2 — Sprout -->
+        <g class="tstage" data-stage="2">
+          <ellipse cx="100" cy="203" rx="27" ry="6.5" fill="url(#soilGrad)"/>
+          <path d="M100,200 C93,202 86,205 79,205" stroke="#6b5236" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+          <path d="M100,200 C107,202 114,205 121,205" stroke="#6b5236" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+          <path d="M100,200 C99,183 100,171 100,159" stroke="#5d7a41" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g class="sway">
+            <path d="M100,166 C88,161 78,164 71,155 C82,153 93,155 100,166Z" fill="url(#canopyA)"/>
+            <path d="M100,166 C112,161 122,164 129,155 C118,153 107,155 100,166Z" fill="url(#canopyB)"/>
+          </g>
+        </g>
+
+        <!-- Stage 3 — Sapling -->
+        <g class="tstage" data-stage="3">
+          <ellipse cx="100" cy="205" rx="31" ry="7" fill="url(#soilGrad)"/>
+          <path d="M100,202 C90,204 80,209 71,209" stroke="#6b5236" stroke-width="2.3" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M100,202 C110,204 120,209 129,209" stroke="#6b5236" stroke-width="2.3" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M97,202 C96,178 98,153 100,135 C102,153 104,178 103,202Z" fill="url(#trunkGrad)"/>
+          <path d="M99,163 C88,153 78,151 68,141" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <path d="M101,161 C112,151 122,149 132,139" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <g class="sway">
+          <circle class="puff" cx="100.0" cy="121.0" r="20.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="84.5" cy="124.0" r="14.5" fill="url(#canopyA)"/>
+          <circle class="puff" cx="113.8" cy="122.2" r="15.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="91.2" cy="136.0" r="12.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="108.0" cy="136.5" r="11.5" fill="url(#canopyA)"/>
+          <circle class="puff" cx="100.0" cy="139.0" r="10.5" fill="url(#canopyA)"/>
+          <circle class="puff" cx="75.0" cy="120.5" r="10.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="92.5" cy="107.2" r="10.5" fill="url(#canopyA)"/>
+          <circle class="puff" cx="102.5" cy="105.5" r="13.8" fill="url(#canopyB)"/>
+          <circle class="puff" cx="113.8" cy="110.5" r="12.5" fill="url(#canopyB)"/>
+          <circle class="puff" cx="123.8" cy="119.0" r="10.5" fill="url(#canopyB)"/>
+          <circle class="puff" cx="105.0" cy="99.0" r="7.5" fill="url(#canopyB)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.55s" fill="#5e8b47" transform="translate(109.4,128.3) rotate(17) scale(0.4)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.585s" fill="#4c7a3b" transform="translate(81.0,118.5) rotate(80) scale(0.49)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.62s" fill="#3f6b31" transform="translate(112.4,111.6) rotate(143) scale(0.58)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.655s" fill="#8fb56d" transform="translate(96.5,137.4) rotate(206) scale(0.43)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.69s" fill="#a3c982" transform="translate(90.4,107.2) rotate(269) scale(0.52)"/>
+          </g>
+        </g>
+
+        <!-- Stage 4 — Growing -->
+        <g class="tstage" data-stage="4">
+          <ellipse cx="100" cy="207" rx="35" ry="7.5" fill="url(#soilGrad)"/>
+          <path d="M100,204 C88,207 76,212 65,212" stroke="#6b5236" stroke-width="2.7" fill="none" stroke-linecap="round" opacity=".6"/>
+          <path d="M100,204 C112,207 124,212 135,212" stroke="#6b5236" stroke-width="2.7" fill="none" stroke-linecap="round" opacity=".6"/>
+          <path d="M95,204 C93,172 96,138 100,113 C104,138 107,172 105,204Z" fill="url(#trunkGrad)"/>
+          <path d="M99,153 C85,143 72,141 58,127" stroke="#6b4f34" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+          <path d="M101,149 C115,139 128,135 142,123" stroke="#6b4f34" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+          <path d="M100,123 C98,111 100,103 100,95" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <g class="sway">
+          <circle class="puff" cx="100.0" cy="104.0" r="27.2" fill="url(#canopyA)"/>
+          <circle class="puff" cx="78.9" cy="108.1" r="19.7" fill="url(#canopyA)"/>
+          <circle class="puff" cx="118.7" cy="105.7" r="20.4" fill="url(#canopyA)"/>
+          <circle class="puff" cx="88.1" cy="124.4" r="16.3" fill="url(#canopyA)"/>
+          <circle class="puff" cx="110.9" cy="125.1" r="15.6" fill="url(#canopyA)"/>
+          <circle class="puff" cx="100.0" cy="128.5" r="14.3" fill="url(#canopyA)"/>
+          <circle class="puff" cx="66.0" cy="103.3" r="13.6" fill="url(#canopyA)"/>
+          <circle class="puff" cx="89.8" cy="85.3" r="14.3" fill="url(#canopyA)"/>
+          <circle class="puff" cx="103.4" cy="82.9" r="18.7" fill="url(#canopyB)"/>
+          <circle class="puff" cx="118.7" cy="89.7" r="17.0" fill="url(#canopyB)"/>
+          <circle class="puff" cx="132.3" cy="101.3" r="14.3" fill="url(#canopyB)"/>
+          <circle class="puff" cx="106.8" cy="74.1" r="10.2" fill="url(#canopyB)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.55s" fill="#4c7a3b" transform="translate(98.7,118.2) rotate(34) scale(0.4)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.585s" fill="#3f6b31" transform="translate(83.8,85.0) rotate(97) scale(0.49)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.62s" fill="#8fb56d" transform="translate(121.1,105.1) rotate(160) scale(0.58)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.655s" fill="#a3c982" transform="translate(76.2,115.7) rotate(223) scale(0.43)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.69s" fill="#78a75c" transform="translate(105.8,82.6) rotate(286) scale(0.52)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.725s" fill="#5e8b47" transform="translate(109.2,116.7) rotate(349) scale(0.61)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.76s" fill="#4c7a3b" transform="translate(74.9,94.9) rotate(52) scale(0.45)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.795s" fill="#3f6b31" transform="translate(120.1,94.9) rotate(115) scale(0.55)"/>
+          </g>
+        </g>
+
+        <!-- Stage 5 — Full tree -->
+        <g class="tstage" data-stage="5">
+          <ellipse cx="100" cy="210" rx="41" ry="8" fill="url(#soilGrad)"/>
+          <path d="M100,206 C85,210 70,215 55,215" stroke="#6b5236" stroke-width="3" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M100,206 C115,210 130,215 145,215" stroke="#6b5236" stroke-width="3" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M93,206 C90,167 95,122 100,90 C105,122 110,167 107,206Z" fill="url(#trunkGrad)"/>
+          <path d="M99,142 C82,130 65,128 46,110" stroke="#6b4f34" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+          <path d="M101,136 C118,124 135,120 154,104" stroke="#6b4f34" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+          <path d="M100,152 C88,158 76,164 61,168" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <path d="M100,152 C112,158 124,164 139,168" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <g class="sway">
+          <circle class="puff" cx="100.0" cy="93.0" r="36.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="72.1" cy="98.4" r="26.1" fill="url(#canopyA)"/>
+          <circle class="puff" cx="124.8" cy="95.2" r="27.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="84.2" cy="120.0" r="21.6" fill="url(#canopyA)"/>
+          <circle class="puff" cx="114.4" cy="120.9" r="20.7" fill="url(#canopyA)"/>
+          <circle class="puff" cx="100.0" cy="125.4" r="18.9" fill="url(#canopyA)"/>
+          <circle class="puff" cx="55.0" cy="92.1" r="18.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="86.5" cy="68.2" r="18.9" fill="url(#canopyA)"/>
+          <circle class="puff" cx="104.5" cy="65.1" r="24.8" fill="url(#canopyB)"/>
+          <circle class="puff" cx="124.8" cy="74.1" r="22.5" fill="url(#canopyB)"/>
+          <circle class="puff" cx="142.8" cy="89.4" r="18.9" fill="url(#canopyB)"/>
+          <circle class="puff" cx="109.0" cy="53.4" r="13.5" fill="url(#canopyB)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.55s" fill="#3f6b31" transform="translate(80.8,104.0) rotate(51) scale(0.4)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.585s" fill="#8fb56d" transform="translate(105.1,61.9) rotate(114) scale(0.49)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.62s" fill="#a3c982" transform="translate(115.8,110.6) rotate(177) scale(0.58)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.655s" fill="#78a75c" transform="translate(63.2,83.2) rotate(240) scale(0.43)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.69s" fill="#5e8b47" transform="translate(127.7,77.7) rotate(303) scale(0.52)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.725s" fill="#4c7a3b" transform="translate(91.9,111.3) rotate(6) scale(0.61)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.76s" fill="#3f6b31" transform="translate(85.7,63.4) rotate(69) scale(0.45)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.795s" fill="#8fb56d" transform="translate(126.6,100.6) rotate(132) scale(0.55)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.83s" fill="#a3c982" transform="translate(63.5,101.4) rotate(195) scale(0.64)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.865s" fill="#78a75c" transform="translate(115.5,66.5) rotate(258) scale(0.48)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.9s" fill="#5e8b47" transform="translate(106.3,112.5) rotate(321) scale(0.58)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.935s" fill="#4c7a3b" transform="translate(70.1,73.9) rotate(24) scale(0.42)"/>
+          <circle cx="66" cy="108" r="3.2" fill="#a55b3f"/>
+          <circle cx="133" cy="100" r="3.2" fill="#a55b3f"/>
+          <circle cx="103" cy="68" r="3.0" fill="#a55b3f"/>
+          </g>
+        </g>
+
+        <!-- Stage 6 — Knowledge tree -->
+        <g class="tstage" data-stage="6">
+          <ellipse cx="100" cy="130" rx="70" ry="60" fill="url(#ambientGlow)"/>
+          <ellipse cx="100" cy="210" rx="41" ry="8" fill="url(#soilGrad)"/>
+          <path d="M100,206 C85,210 70,215 55,215" stroke="#6b5236" stroke-width="3" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M100,206 C115,210 130,215 145,215" stroke="#6b5236" stroke-width="3" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M93,206 C90,167 95,122 100,90 C105,122 110,167 107,206Z" fill="url(#trunkGrad)"/>
+          <path d="M99,142 C82,130 65,128 46,110" stroke="#6b4f34" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+          <path d="M101,136 C118,124 135,120 154,104" stroke="#6b4f34" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+          <path d="M100,152 C88,158 76,164 61,168" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <path d="M100,152 C112,158 124,164 139,168" stroke="#6b4f34" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <g class="sway">
+          <circle class="puff" cx="100.0" cy="93.0" r="36.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="72.1" cy="98.4" r="26.1" fill="url(#canopyA)"/>
+          <circle class="puff" cx="124.8" cy="95.2" r="27.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="84.2" cy="120.0" r="21.6" fill="url(#canopyA)"/>
+          <circle class="puff" cx="114.4" cy="120.9" r="20.7" fill="url(#canopyA)"/>
+          <circle class="puff" cx="100.0" cy="125.4" r="18.9" fill="url(#canopyA)"/>
+          <circle class="puff" cx="55.0" cy="92.1" r="18.0" fill="url(#canopyA)"/>
+          <circle class="puff" cx="86.5" cy="68.2" r="18.9" fill="url(#canopyA)"/>
+          <circle class="puff" cx="104.5" cy="65.1" r="24.8" fill="url(#canopyB)"/>
+          <circle class="puff" cx="124.8" cy="74.1" r="22.5" fill="url(#canopyB)"/>
+          <circle class="puff" cx="142.8" cy="89.4" r="18.9" fill="url(#canopyB)"/>
+          <circle class="puff" cx="109.0" cy="53.4" r="13.5" fill="url(#canopyB)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.55s" fill="#8fb56d" transform="translate(90.4,72.0) rotate(84) scale(0.42)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.585s" fill="#4c7a3b" transform="translate(133.6,86.5) rotate(147) scale(0.51)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.62s" fill="#78a75c" transform="translate(69.9,113.0) rotate(210) scale(0.6)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.655s" fill="#3f6b31" transform="translate(118.4,131.0) rotate(273) scale(0.45)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.69s" fill="#a3c982" transform="translate(60.8,79.7) rotate(336) scale(0.54)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.725s" fill="#5e8b47" transform="translate(107.5,58.2) rotate(39) scale(0.63)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.76s" fill="#4c7a3b" transform="translate(140.0,105.3) rotate(102) scale(0.47)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.795s" fill="#78a75c" transform="translate(82.7,131.4) rotate(165) scale(0.57)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.83s" fill="#8fb56d" transform="translate(95.6,110.9) rotate(228) scale(0.66)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.865s" fill="#3f6b31" transform="translate(128.9,60.5) rotate(291) scale(0.5)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.9s" fill="#a3c982" transform="translate(75.3,90.9) rotate(354) scale(0.6)"/>
+          <use href="#leafShape" class="accent-leaf" style="animation-delay:0.935s" fill="#5e8b47" transform="translate(112.7,98.6) rotate(57) scale(0.44)"/>
+          <circle cx="66" cy="108" r="3.2" fill="#a55b3f"/>
+          <circle cx="133" cy="100" r="3.2" fill="#a55b3f"/>
+          <circle cx="103" cy="68" r="3.0" fill="#a55b3f"/>
+          </g>
+          <g stroke="rgba(255,250,230,.55)" stroke-width=".7" fill="none">
+            <path class="neural-line" d="M72,90 L100,72 L128,96"/>
+            <path class="neural-line" d="M100,72 L100,110" style="animation-delay:.3s"/>
+            <path class="neural-line" d="M60,120 L100,110 L142,116" style="animation-delay:.6s"/>
+          </g>
+          <g fill="#fff2c4" filter="url(#softGlow)">
+            <circle class="node" cx="72" cy="90" r="2.6"/>
+            <circle class="node" cx="100" cy="72" r="2.6"/>
+            <circle class="node" cx="128" cy="96" r="2.6"/>
+            <circle class="node" cx="100" cy="110" r="2.6"/>
+            <circle class="node" cx="60" cy="120" r="2.6"/>
+            <circle class="node" cx="142" cy="116" r="2.6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="stage-progress" id="stageProgress">
+      <div class="stage-dot active" title="Seed"></div>
+      <div class="stage-dot" title="Sprout"></div>
+      <div class="stage-dot" title="Sapling"></div>
+      <div class="stage-dot" title="Growing"></div>
+      <div class="stage-dot" title="Full tree"></div>
+      <div class="stage-dot" title="Knowledge tree"></div>
+    </div>
+
+    <div class="crawl-steps">
+          <div class="crawl-step active" id="step1"><span>Discovering pages</span></div>
+          <div class="crawl-step" id="step2"><span>Following links</span></div>
+          <div class="crawl-step" id="step3"><span>Extracting content</span></div>
+          <div class="crawl-step" id="step4"><span>Creating embeddings</span></div>
+          <div class="crawl-step" id="step5"><span>Building knowledge base</span></div>
+        </div>
+      <div class="cat-note"><img class="cat-icon" src="data:image/png;base64,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" alt="black cat"> Each crawl stage grows the knowledge tree, one step at a time...</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+<nav>
+  <div class="brand"><div class="brand-icon">🌿</div>WebLeaf AI</div>
+  <div class="nav-status"><span class="dot"></span> Knowledge Base Ready</div>
+</nav>
+
+<div class="dashboard">
+  <div class="dashboard-top">
+    <div>
+      <h2>Website Knowledge</h2>
+      <div style="color:var(--muted);font-size:13px;margin-top:4px">Your website has been crawled successfully.</div>
+    </div>
+    <button class="back" onclick="goBack()">← Crawl another website</button>
+  </div>
+
+  <div class="workspace">
+    <aside class="panel">
+      <div class="panel-title">🌳 Knowledge Base</div>
+      <div class="knowledge-body">
+        <div id="finalUrl" class="site-url">https://example.com</div>
+        <div class="stat">Pages crawled <span class="ready" id="pages">0</span></div>
+        <div class="stat">Text chunks <span class="ready" id="chunks">0</span></div>
+        <div class="stat">Embeddings <span class="ready">Ready (384-d)</span></div>
+        <div class="stat">FAISS index <span class="ready">Ready</span></div>
+        <div class="stat">Semantic search <span class="ready">Online</span></div>
+        <div class="stat">RAG pipeline <span class="ready">Ready</span></div>
+      </div>
+    </aside>
+
+    <div class="panel chat">
+      <div class="chat-head">
+        <div class="avatar"><img class="cat-icon" src="data:image/png;base64,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" alt="black cat"></div>
+        <div>
+          <strong>Web Assistant</strong>
+          <small>● Connected to your website knowledge base</small>
+        </div>
+      </div>
+
+      <div id="messages" class="messages">
+        <div class="msg ai">
+          Hello! 🌿 I'm your Web Assistant.
+          <br><br>
+          I've finished reading the website. Ask me anything about its content and I'll search the knowledge base for the answer.
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input id="question" placeholder="Ask something about the website..."
+               onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="send" onclick="sendMessage()">↑</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Marked.js for Markdown Parsing -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- Highlight.js for Syntax Highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<!-- Custom JS -->
+<script src="script.js"></script>
+</body>
+</html>
